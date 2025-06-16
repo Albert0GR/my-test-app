@@ -71,8 +71,8 @@ export default function ExamenTecnologia() {
 
       setResult(score);
     } catch (err) {
-      console.error(err);
-      alert("Error al enviar los datos.");
+      //console.error(err);
+      //alert("Error al enviar los datos.");
     } finally {
       setLoading(false);
     }

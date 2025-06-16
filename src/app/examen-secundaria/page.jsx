@@ -186,7 +186,7 @@ export default function ExamPage() {
       <div style={navButtonsStyle}>
         <button
           onClick={() => setCurrentIndex((prev) => Math.max(prev - 1, 0))}
-          disabled={currentIndex === 1}
+          disabled={currentIndex === 0}
           style={navButtonStyle}
         >
           Anterior

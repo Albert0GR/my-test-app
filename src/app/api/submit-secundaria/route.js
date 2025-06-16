@@ -11,7 +11,7 @@ export async function POST(req) {
     const { name, grade, answers } = body;
 
     const { error } = await supabase
-      .from('examenSecundaria3trim')
+      .from('examensecundaria3trim')
       .insert({
         name,
         grade,

@@ -42,7 +42,117 @@ const allQuestions = [
   { id: 37, text: "¿Qué sucede si no se respeta el tiempo de entrega en un proyecto?", options: ["Se mejora el trabajo", "Se retrasan todos los procesos", "No pasa nada", "Se gana más tiempo"], answer: 1 },
   { id: 38, text: "¿Qué es un documento de justificación?", options: ["Un reporte que argumenta las razones de un proyecto", "Una lista de materiales", "Un presupuesto", "Una tarea escrita"], answer: 0 },
   { id: 39, text: "¿Qué característica debe tener un objetivo?", options: ["Ser confuso", "Ser concreto, medible y alcanzable", "Ser largo", "Ser personal"], answer: 1 },
-  { id: 40, text: "¿Cuál es la etiqueta correcta para insertar una imagen en HTML?", options: ["<img>", "<picture>", "<image>", "<pic>"], answer: 0 }
+  { id: 40, text: "¿Cuál es la etiqueta correcta para insertar una imagen en HTML?", options: ["<img>", "<picture>", "<image>", "<pic>"], answer: 0 },
+  {
+    id: 41,
+    text: "¿Qué es el hosting web?",
+    options: [
+      "Un editor de imágenes",
+      "Un servicio que almacena los archivos de una página web para que estén disponibles en internet",
+      "Un procesador de texto",
+      "Un antivirus"
+    ],
+    answer: 1
+  },
+  {
+    id: 42,
+    text: "¿Qué es un dominio en internet?",
+    options: [
+      "Una contraseña de red",
+      "Un número de teléfono",
+      "La dirección única de un sitio web que las personas escriben en el navegador",
+      "Un programa de seguridad"
+    ],
+    answer: 2
+  },
+  {
+    id: 43,
+    text: "¿Cuál es un ejemplo correcto de un dominio?",
+    options: [
+      "https://servidor.local",
+      "www.mipaginaweb.com",
+      "ftp://192.168.1.1",
+      "file://documentos"
+    ],
+    answer: 1
+  },
+  {
+    id: 44,
+    text: "¿Para qué sirve una base de datos en una página web?",
+    options: [
+      "Para guardar música",
+      "Para almacenar y organizar información que se usa en la web, como usuarios, productos o publicaciones",
+      "Para diseñar la apariencia",
+      "Para enviar correos electrónicos"
+    ],
+    answer: 1
+  },
+  {
+    id: 45,
+    text: "¿Qué es MySQL?",
+    options: [
+      "Un lenguaje de programación de juegos",
+      "Un programa de dibujo",
+      "Un sistema gestor de bases de datos muy utilizado en páginas web",
+      "Un editor de videos"
+    ],
+    answer: 2
+  },
+  {
+    id: 46,
+    text: "¿Qué sucede si no pagamos el dominio de nuestra página web?",
+    options: [
+      "No pasa nada",
+      "La página sigue funcionando normalmente",
+      "El dominio puede ser liberado y otra persona podría comprarlo",
+      "Se convierte en una red social"
+    ],
+    answer: 2
+  },
+  {
+    id: 47,
+    text: "¿Qué información guarda una base de datos de usuarios?",
+    options: [
+      "Películas y videos",
+      "Juegos descargados",
+      "Datos como nombres, contraseñas, correos electrónicos",
+      "Las imágenes de la página"
+    ],
+    answer: 2
+  },
+  {
+    id: 48,
+    text: "¿Qué servicio gratuito permite publicar páginas web estáticas?",
+    options: [
+      "Github Pages",
+      "Netflix",
+      "Word",
+      "Photoshop"
+    ],
+    answer: 0
+  },
+  {
+    id: 49,
+    text: "¿Qué ventaja tiene usar hosting en la nube?",
+    options: [
+      "La página solo funciona en una computadora local",
+      "Puede estar disponible las 24 horas desde cualquier lugar con internet",
+      "Se necesita tener la computadora siempre encendida",
+      "Solo funciona en dispositivos móviles"
+    ],
+    answer: 1
+  },
+  {
+    id: 50,
+    text: "¿Para qué sirve el panel de control del hosting?",
+    options: [
+      "Para diseñar gráficos",
+      "Para administrar los archivos, bases de datos y configuraciones del sitio web",
+      "Para enviar mensajes",
+      "Para crear cuentas de redes sociales"
+    ],
+    answer: 1
+  }
 ];
 
 

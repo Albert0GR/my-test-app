@@ -73,44 +73,76 @@ export default function ExamPage() {
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Comic Sans MS, sans-serif', backgroundColor: '#f0f8ff' }}>
-      <h1 style={{ fontSize: '32px', color: '#2b6cb0' }}>Examen de Tecnologías</h1>
-      <form onSubmit={handleSubmit}>
-        <label style={{ fontSize: '20px' }}>Nombre del alumno:
-          <input 
-            type="text" 
-            value={name} 
-            onChange={(e) => setName(e.target.value)} 
-            required 
-            style={{ fontSize: '18px', marginLeft: '10px', padding: '5px', borderRadius: '8px' }}
-          />
-        </label>
+    <div style={{
+      backgroundColor: '#f0f8ff', // azul clarito
+      minHeight: '100vh',
+      padding: '20px',
+      fontFamily: 'Arial, sans-serif',
+      color: '#333',
+    }}>
+      <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Examen de Tecnologías</h1>
+      <form onSubmit={handleSubmit} style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+          <label>Nombre del alumno: &nbsp;
+            <input 
+              type="text" 
+              value={name} 
+              onChange={(e) => setName(e.target.value)} 
+              required 
+              style={{
+                padding: '10px',
+                fontSize: '16px',
+                borderRadius: '5px',
+                border: '1px solid #aaa',
+                width: '60%'
+              }}
+            />
+          </label>
+        </div>
         <hr />
         {questions.map((q, idx) => (
-          <div key={q.id} style={{ marginBottom: '25px', padding: '10px', border: '1px solid #cbd5e0', borderRadius: '10px', backgroundColor: '#ffffff' }}>
-            <p style={{ fontSize: '20px' }}>{q.id}. {q.text}</p>
-            {q.options.map((opt, optIdx) => (
-              <label key={optIdx} style={{ marginRight: '15px', fontSize: '18px' }}>
-                <input 
-                  type="radio" 
-                  name={`q-${q.id}`} 
-                  value={optIdx} 
-                  checked={answers[idx] === optIdx}
-                  onChange={() => handleAnswerChange(idx, optIdx)}
-                  style={{ marginRight: '8px' }}
-                /> {opt}
-              </label>
-            ))}
+          <div key={q.id} style={{ marginBottom: '30px', padding: '15px', backgroundColor: '#ffffff', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}>
+            <p style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '15px' }}>{q.id}. {q.text}</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {q.options.map((opt, optIdx) => (
+                <label key={optIdx} style={{
+                  padding: '10px 15px',
+                  backgroundColor: '#e6f0fa',
+                  borderRadius: '8px',
+                  border: '1px solid #ccc',
+                  cursor: 'pointer',
+                  fontSize: '16px'
+                }}>
+                  <input 
+                    type="radio" 
+                    name={`q-${q.id}`} 
+                    value={optIdx} 
+                    checked={answers[idx] === optIdx}
+                    onChange={() => handleAnswerChange(idx, optIdx)}
+                    style={{ marginRight: '10px' }}
+                  />
+                  {opt}
+                </label>
+              ))}
+            </div>
           </div>
         ))}
-        <button type="submit" style={{ fontSize: '20px', padding: '10px 20px', backgroundColor: '#48bb78', color: '#fff', border: 'none', borderRadius: '10px' }}>
-          Enviar respuestas
-        </button>
+        <div style={{ textAlign: 'center', marginTop: '30px' }}>
+          <button type="submit" style={{
+            padding: '15px 30px',
+            fontSize: '18px',
+            backgroundColor: '#4CAF50',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '8px',
+            cursor: 'pointer'
+          }}>Enviar</button>
+        </div>
       </form>
 
       {score !== null && (
-        <div style={{ marginTop: '20px', fontSize: '22px', color: '#2f855a' }}>
-          <h2>¡Tu resultado es: {score} de {questions.length}!</h2>
+        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+          <h2>Resultado: {score} / {questions.length}</h2>
         </div>
       )}
     </div>

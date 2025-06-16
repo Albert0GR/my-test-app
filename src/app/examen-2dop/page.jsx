@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const questions = [
+// Tu listado completo de preguntas:
+const allQuestions = [
   { id: 1, text: "¿Qué es una impresora 3D?", options: ["Una máquina que imprime en hojas", "Un aparato que dibuja", "Una máquina que crea objetos en 3D", "Una televisión especial"], answer: 2 },
   { id: 2, text: "¿Qué material usa comúnmente la impresora 3D?", options: ["Plástico", "Papel", "Madera", "Metal puro"], answer: 0 },
   { id: 3, text: "¿Para qué sirve el programa Paint?", options: ["Ver películas", "Escribir códigos", "Hacer dibujos", "Escuchar música"], answer: 2 },
@@ -39,25 +40,51 @@ const questions = [
   { id: 35, text: "¿Qué debemos evitar hacer en las redes sociales?", options: ["Compartir datos personales", "Ser amables", "Publicar dibujos", "Aprender cosas nuevas"], answer: 0 },
 ];
 
+// Mezcla aleatoria:
+// Función para mezclar preguntas aleatoriamente
+function shuffle(array) {
+  let currentIndex = array.length, randomIndex;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+  return array;
+}
+
 export default function ExamPage() {
   const [name, setName] = useState('');
-  const [answers, setAnswers] = useState(Array(questions.length).fill(null));
+  const [started, setStarted] = useState(false); // <<--- Controla cuando inicia el examen
+  const [questions, setQuestions] = useState([]);
+  const [answers, setAnswers] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [score, setScore] = useState(null);
 
-  const handleAnswerChange = (index, option) => {
-    const newAnswers = [...answers];
-    newAnswers[index] = option;
-    setAnswers(newAnswers);
+  const startExam = () => {
+    const shuffled = shuffle([...allQuestions]);
+    setQuestions(shuffled);
+    setAnswers(new Array(shuffled.length).fill(null));
+    setStarted(true);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!name || answers.includes(null)) {
-      alert("Responde todas las preguntas y escribe tu nombre");
+  const handleSelect = (option) => {
+    const updatedAnswers = [...answers];
+    updatedAnswers[currentIndex] = option;
+    setAnswers(updatedAnswers);
+  };
+
+  const handleSubmit = async () => {
+    if (answers.includes(null)) {
+      alert("Por favor responde todas las preguntas antes de finalizar.");
       return;
     }
 
-    const correct = answers.filter((ans, idx) => ans === questions[idx].answer).length;
+    let correct = 0;
+    answers.forEach((ans, idx) => {
+      if (ans === questions[idx].answer) correct++;
+    });
+
+    setScore(correct);
 
     const res = await fetch('/api/submit-2do', {
       method: 'POST',
@@ -65,86 +92,172 @@ export default function ExamPage() {
       body: JSON.stringify({ name, score: correct }),
     });
 
-    if (res.ok) {
-      setScore(correct);
-    } else {
-      alert("Error al guardar los resultados");
+    if (!res.ok) {
+      alert("Error al guardar resultados");
     }
   };
 
-  return (
-    <div style={{
-      backgroundColor: '#f0f8ff', // azul clarito
-      minHeight: '100vh',
-      padding: '20px',
-      fontFamily: 'Arial, sans-serif',
-      color: '#333',
-    }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Examen de Tecnologías</h1>
-      <form onSubmit={handleSubmit} style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+  // Pantalla inicial para poner el nombre
+  if (!started) {
+    return (
+      <div style={containerStyle}>
+        <h1>Examen de Tecnologías</h1>
+        <div style={{ marginTop: 30 }}>
           <label>Nombre del alumno: &nbsp;
-            <input 
-              type="text" 
-              value={name} 
-              onChange={(e) => setName(e.target.value)} 
-              required 
-              style={{
-                padding: '10px',
-                fontSize: '16px',
-                borderRadius: '5px',
-                border: '1px solid #aaa',
-                width: '60%'
-              }}
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              style={inputStyle}
             />
           </label>
-        </div>
-        <hr />
-        {questions.map((q, idx) => (
-          <div key={q.id} style={{ marginBottom: '30px', padding: '15px', backgroundColor: '#ffffff', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}>
-            <p style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '15px' }}>{q.id}. {q.text}</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {q.options.map((opt, optIdx) => (
-                <label key={optIdx} style={{
-                  padding: '10px 15px',
-                  backgroundColor: '#e6f0fa',
-                  borderRadius: '8px',
-                  border: '1px solid #ccc',
-                  cursor: 'pointer',
-                  fontSize: '16px'
-                }}>
-                  <input 
-                    type="radio" 
-                    name={`q-${q.id}`} 
-                    value={optIdx} 
-                    checked={answers[idx] === optIdx}
-                    onChange={() => handleAnswerChange(idx, optIdx)}
-                    style={{ marginRight: '10px' }}
-                  />
-                  {opt}
-                </label>
-              ))}
-            </div>
+          <div style={{ marginTop: 20 }}>
+            <button onClick={startExam} style={startButtonStyle} disabled={!name}>
+              Comenzar Examen
+            </button>
           </div>
-        ))}
-        <div style={{ textAlign: 'center', marginTop: '30px' }}>
-          <button type="submit" style={{
-            padding: '15px 30px',
-            fontSize: '18px',
-            backgroundColor: '#4CAF50',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '8px',
-            cursor: 'pointer'
-          }}>Enviar</button>
         </div>
-      </form>
+      </div>
+    );
+  }
 
-      {score !== null && (
-        <div style={{ textAlign: 'center', marginTop: '40px' }}>
-          <h2>Resultado: {score} / {questions.length}</h2>
+  if (score !== null) {
+    return (
+      <div style={containerStyle}>
+        <h1>Resultado final</h1>
+        <h2>{score} / {questions.length}</h2>
+      </div>
+    );
+  }
+
+  const question = questions[currentIndex];
+
+  return (
+    <div style={containerStyle}>
+      <h1>Pregunta {currentIndex + 1} de {questions.length}</h1>
+      <div style={cardStyle}>
+        <p style={questionStyle}>{question.id}. {question.text}</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+          {question.options.map((opt, idx) => (
+            <button
+              key={idx}
+              onClick={() => handleSelect(idx)}
+              style={{
+                ...optionStyle,
+                backgroundColor: answers[currentIndex] === idx ? '#a3d2ca' : '#e6f0fa'
+              }}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div style={navButtonsStyle}>
+        <button
+          onClick={() => setCurrentIndex((prev) => Math.max(prev - 1, 0))}
+          disabled={currentIndex === 0}
+          style={navButtonStyle}
+        >
+          Anterior
+        </button>
+
+        <button
+          onClick={() => setCurrentIndex((prev) => Math.min(prev + 1, questions.length - 1))}
+          disabled={currentIndex === questions.length - 1}
+          style={navButtonStyle}
+        >
+          Siguiente
+        </button>
+      </div>
+
+      {currentIndex === questions.length - 1 && (
+        <div style={{ marginTop: '20px' }}>
+          <button onClick={handleSubmit} style={finishButtonStyle}>Finalizar Examen</button>
         </div>
       )}
     </div>
   );
 }
+
+// Estilos centralizados:
+const containerStyle = {
+  backgroundColor: '#f0f8ff',
+  minHeight: '100vh',
+  padding: '20px',
+  fontFamily: 'Arial, sans-serif',
+  color: '#333',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+
+const cardStyle = {
+  backgroundColor: '#ffffff',
+  borderRadius: '15px',
+  boxShadow: '0 0 15px rgba(0,0,0,0.2)',
+  padding: '30px',
+  width: '90%',
+  maxWidth: '700px',
+  textAlign: 'center'
+};
+
+const questionStyle = {
+  fontSize: '20px',
+  marginBottom: '20px',
+  fontWeight: 'bold'
+};
+
+const optionStyle = {
+  padding: '15px',
+  fontSize: '18px',
+  borderRadius: '10px',
+  border: '1px solid #ccc',
+  cursor: 'pointer'
+};
+
+const inputStyle = {
+  padding: '10px',
+  fontSize: '16px',
+  borderRadius: '5px',
+  border: '1px solid #aaa',
+  width: '60%'
+};
+
+const startButtonStyle = {
+  padding: '15px 30px',
+  fontSize: '18px',
+  backgroundColor: '#4CAF50',
+  color: '#fff',
+  border: 'none',
+  borderRadius: '8px',
+  cursor: 'pointer'
+};
+
+const navButtonsStyle = {
+  marginTop: '30px',
+  display: 'flex',
+  justifyContent: 'center',
+  gap: '20px'
+};
+
+const navButtonStyle = {
+  padding: '12px 30px',
+  fontSize: '16px',
+  backgroundColor: '#4CAF50',
+  color: '#fff',
+  border: 'none',
+  borderRadius: '8px',
+  cursor: 'pointer'
+};
+
+const finishButtonStyle = {
+  padding: '15px 50px',
+  fontSize: '18px',
+  backgroundColor: '#2196F3',
+  color: '#fff',
+  border: 'none',
+  borderRadius: '8px',
+  cursor: 'pointer'
+};

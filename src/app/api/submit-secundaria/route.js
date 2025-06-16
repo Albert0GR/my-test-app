@@ -8,14 +8,15 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { name, grade, answers } = body;
+    const { name, grade, answers, score } = body;
 
     const { error } = await supabase
       .from('examensecundaria3trim')
       .insert({
         name,
         grade,
-        answers
+        answers,
+        score
       });
 
     if (error) {

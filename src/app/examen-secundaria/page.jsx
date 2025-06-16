@@ -203,11 +203,12 @@ export default function ExamPage() {
 
     setScore(correct);
 
-    const res = await fetch('/api/submit-secundaria', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, grade, answers }),
-    });
+   const res = await fetch('/api/submit-secundaria', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name, grade, answers, score: correct }),
+});
+
 
     if (!res.ok) {
       alert("Error al guardar resultados");

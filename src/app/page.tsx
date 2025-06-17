@@ -1,53 +1,68 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+    <div className="min-h-screen bg-gradient-to-br from-[#e0f7fa] to-[#ffffff] flex flex-col justify-center items-center p-8">
+      
+      <div className="text-center mb-12">
         <Image
-          className="dark:invert"
-          src="/nexts.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+          src="/exam-icon.png"  // <-- Puedes colocar aquí el icono que desees
+          alt="Examen Logo"
+          width={120}
+          height={120}
         />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            {" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              hello world
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-          code your dreams.
-          </li>
-        </ol>
+        <h1 className="text-4xl font-bold text-[#00796b] mt-4">Examen de Tecnología</h1>
+        <p className="text-lg text-gray-600 mt-2">
+          Plataforma de evaluación
+        </p>
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 w-full max-w-3xl">
+
+        <div className="bg-white shadow-xl rounded-xl p-8 flex flex-col items-center hover:scale-105 transition">
+          <h2 className="text-2xl font-semibold text-[#00796b] mb-4">Examen Secundaria</h2>
+          <p className="text-center text-gray-600 mb-6">
+            Ingresa al examen de tecnologías para alumnos de secundaria.
+          </p>
+          <Link
+            href="/examen-secundaria"
+            className="bg-[#00796b] text-white py-3 px-6 rounded-full text-lg font-medium shadow-md hover:bg-[#00695c] transition"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            
-          </a>
-          
+            Iniciar Examen
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        
-     
-        
+
+        <div className="bg-white shadow-xl rounded-xl p-8 flex flex-col items-center hover:scale-105 transition">
+          <h2 className="text-2xl font-semibold text-[#00796b] mb-4">Examen 2do Primaria</h2>
+          <p className="text-center text-gray-600 mb-6">
+            Ingresa al examen de tecnología para alumnos de primaria.
+          </p>
+          <Link
+            href="/examen-2dop"
+            className="bg-[#00796b] text-white py-3 px-6 rounded-full text-lg font-medium shadow-md hover:bg-[#00695c] transition"
+          >
+            Iniciar Examen
+          </Link>
+        </div>
+
+        <div className="bg-white shadow-xl rounded-xl p-8 flex flex-col items-center hover:scale-105 transition">
+          <h2 className="text-2xl font-semibold text-[#00796b] mb-4">Información</h2>
+          <p className="text-center text-gray-600 mb-6">
+            Examen final.
+          </p>
+          <a
+            href="#"
+            className="bg-[#00796b] text-white py-3 px-6 rounded-full text-lg font-medium shadow-md opacity-50 cursor-not-allowed"
+          >
+            Pronto disponible
+          </a>
+        </div>
+
+      </div>
+
+      <footer className="mt-20 text-sm text-gray-500">
+        © 2025 - Plataforma Educativa
       </footer>
     </div>
   );

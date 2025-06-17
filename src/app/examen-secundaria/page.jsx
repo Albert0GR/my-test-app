@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 // Tu listado completo de preguntas:
 const allQuestions = [
-  { id: 1, text: "¿Qué es una página web?", options: ["Un archivo físico", "Un documento HTML accesible por internet", "Una imagen estática", "Una base de datos"], answer: 1 },
+  { id: 1, text: "¿Qué es una página web?", options: ["Un archivo físico que permite enviar datos", "Un documento HTML accesible por internet", "Una imagen o conjunto de imagenes estáticas", "Una base de datos relacional con contenido importante e informativo"], answer: 1 },
   { id: 2, text: "¿Qué lenguaje se utiliza para definir el contenido de una página web?", options: ["Python", "HTML", "SQL", "C++"], answer: 1 },
   { id: 3, text: "¿Qué es una etiqueta en HTML?", options: ["Una variable", "Una instrucción de diseño", "Un comando de programación", "Un elemento que define estructura de contenido"], answer: 3 },
   { id: 4, text: "¿Para qué sirve la etiqueta `<h1>` en HTML?", options: ["Crear tablas", "Definir el título principal", "Agregar imágenes", "Crear listas"], answer: 1 },
@@ -47,10 +47,10 @@ const allQuestions = [
     id: 41,
     text: "¿Qué es el hosting web?",
     options: [
-      "Un editor de imágenes",
+      "Un editor de imágenes muy poderoso pero es de pago, sin embargo, es el mejor",
       "Un servicio que almacena los archivos de una página web para que estén disponibles en internet",
-      "Un procesador de texto",
-      "Un antivirus"
+      "Un procesador de texto para escribir documentos en la web, es similar a Word",
+      "Un antivirus que protege las páginas web de virus y ataques cibernéticos"
     ],
     answer: 1
   },
@@ -58,10 +58,10 @@ const allQuestions = [
     id: 42,
     text: "¿Qué es un dominio en internet?",
     options: [
-      "Una contraseña de red",
-      "Un número de teléfono",
+      "Una contraseña de red que se usa para acceder a una página web",
+      "Un número de teléfono unico de una empresa para identificar su página web",
       "La dirección única de un sitio web que las personas escriben en el navegador",
-      "Un programa de seguridad"
+      "Un programa de seguridad que protege las páginas web de ataques"
     ],
     answer: 2
   },
@@ -80,10 +80,10 @@ const allQuestions = [
     id: 44,
     text: "¿Para qué sirve una base de datos en una página web?",
     options: [
-      "Para guardar música",
+      "Para guardar música y videos de forma local, asi como juegos",
       "Para almacenar y organizar información que se usa en la web, como usuarios, productos o publicaciones",
-      "Para diseñar la apariencia",
-      "Para enviar correos electrónicos"
+      "Para diseñar la apariencia de nuestra página web",
+      "Para enviar correos electrónicos y mensajes a los usuarios de la web"
     ],
     answer: 1
   },
@@ -91,10 +91,10 @@ const allQuestions = [
     id: 45,
     text: "¿Qué es MySQL?",
     options: [
-      "Un lenguaje de programación de juegos",
-      "Un programa de dibujo",
+      "Un lenguaje de programación de juegos y aplicaciones",
+      "Un programa de dibujo epspecializado",
       "Un sistema gestor de bases de datos muy utilizado en páginas web",
-      "Un editor de videos"
+      "Un editor de videos muy avanzado"
     ],
     answer: 2
   },
@@ -102,10 +102,10 @@ const allQuestions = [
     id: 46,
     text: "¿Qué sucede si no pagamos el dominio de nuestra página web?",
     options: [
-      "No pasa nada",
-      "La página sigue funcionando normalmente",
+      "No pasa nada, la página sigue activa",
+      "La página sigue funcionando normalmente pero sin actualizaciones",
       "El dominio puede ser liberado y otra persona podría comprarlo",
-      "Se convierte en una red social"
+      "Se convierte en una red social de pago para siempre"
     ],
     answer: 2
   },
@@ -113,10 +113,10 @@ const allQuestions = [
     id: 47,
     text: "¿Qué información guarda una base de datos de usuarios?",
     options: [
-      "Películas y videos",
-      "Juegos descargados",
+      "Películas y videos de YouTube",
+      "Juegos descargados de internet y sus puntuaciones",
       "Datos como nombres, contraseñas, correos electrónicos",
-      "Las imágenes de la página"
+      "Las imágenes de la página de un libro"
     ],
     answer: 2
   },
@@ -138,7 +138,7 @@ const allQuestions = [
       "La página solo funciona en una computadora local",
       "Puede estar disponible las 24 horas desde cualquier lugar con internet",
       "Se necesita tener la computadora siempre encendida",
-      "Solo funciona en dispositivos móviles"
+      "Solo funciona en dispositivos móviles con una suscripcion mensual"
     ],
     answer: 1
   },
@@ -146,10 +146,10 @@ const allQuestions = [
     id: 50,
     text: "¿Para qué sirve el panel de control del hosting?",
     options: [
-      "Para diseñar gráficos",
+      "Para diseñar gráficos, texto e imagenes",
       "Para administrar los archivos, bases de datos y configuraciones del sitio web",
-      "Para enviar mensajes",
-      "Para crear cuentas de redes sociales"
+      "Para enviar mensajes, recordatorios y recibir correos",
+      "Para crear cuentas de redes sociales y publicar contenido"
     ],
     answer: 1
   }

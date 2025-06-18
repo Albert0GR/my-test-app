@@ -92,7 +92,7 @@ const allQuestions = [
       "Insertar bloques de texto",
       "Incrustar scripts",
       "Definir estilos en línea",
-      "Agregar formularios"
+      "Agregar parrafos"
     ], answer: 0 },
   { id: 16, text: "¿Qué significa el atributo 'alt' en una imagen?", options: [
       "Texto de descripción para accesibilidad",
@@ -109,7 +109,7 @@ const allQuestions = [
   { id: 18, text: "¿Qué es un dominio?", options: [
       "Nombre único que identifica un sitio web",
       "Un lenguaje de programación",
-      "Una red social privada",
+      "Rol unico de un sitio web",
       "Un protocolo de transferencia"
     ], answer: 0 },
   { id: 19, text: "¿Qué es el diseño responsivo?", options: [
@@ -133,7 +133,7 @@ const allQuestions = [
   { id: 22, text: "¿Por qué es importante definir bien el problema?", options: [
       "Para enfocar soluciones y objetivos",
       "Para copiar plantillas",
-      "Para añadir estética",
+      "Para definir mis metas personales",
       "Para completar requisitos sin propósito"
     ], answer: 0 },
   { id: 23, text: "¿Qué permite organizar tareas por etapas?", options: [
@@ -150,9 +150,9 @@ const allQuestions = [
     ], answer: 0 },
   { id: 25, text: "¿Qué es un objetivo específico?", options: [
       "Meta puntual y medible",
-      "Un diagrama de flujo",
-      "Una imagen de portada",
-      "Una biblioteca externa"
+      "Un diagrama de direccion especifico",
+      "Una imagen del sistema operativo instalado",
+      "Una biblioteca externa que se usa en el proyecto"
     ], answer: 0 },
   { id: 26, text: "¿Cuál es el primer paso al iniciar un proyecto?", options: [
       "Detectar la problemática real",
@@ -186,33 +186,33 @@ const allQuestions = [
     ], answer: 0 },
   { id: 31, text: "¿Qué es un encabezado `<h3>`?", options: [
       "Subtítulo menos importante que `<h1>`",
-      "Etiqueta para imágenes",
+      "Etiqueta para imágenes version 3",
       "Tabla de datos",
       "Enlace externo"
     ], answer: 0 },
   { id: 32, text: "¿Qué representa un problema social?", options: [
       "Una dificultad que impacta a un grupo",
-      "Un gusto personal",
-      "Un error de programación",
-      "Una preferencia individual"
+      "Un gusto personal que afecta a los demás",
+      "Un error de programación en un sitio web",
+      "Una preferencia individual sin consecuencias"
     ], answer: 0 },
   { id: 33, text: "¿Cuál es la importancia de justificar un proyecto?", options: [
       "Brindar fundamentos y motivación del proyecto",
-      "Mostrar ejemplos gráficos",
-      "Citar solo fuentes",
-      "Ignorar contexto"
+      "Mostrar ejemplos gráficos y tecnológicos",
+      "Citar solo fuentes de internet",
+      "Mostrar ontexto y antecedentes del problema"
     ], answer: 0 },
   { id: 34, text: "¿Qué permite un plan de trabajo?", options: [
       "Definir actividades, plazos y responsables",
-      "Eliminar tareas innecesarias",
-      "Retrasar entregas sin aviso",
+      "Eliminar tareas innecesarias y sin sentido",
+      "Retrasar entregas sin aviso previo",
       "Diseñar logos utiles en la web"
     ], answer: 0 },
   { id: 35, text: "¿Por qué es importante el trabajo colaborativo?", options: [
       "Combinar habilidades y conocimientos",
       "Reducir trabajo en equipo",
-      "Aumentar costos",
-      "Evitar comunicación"
+      "Aumentar costos del proyecto",
+      "Evitar comunicación entre miembros del equipo"
     ], answer: 0 },
   { id: 36, text: "¿Qué plataforma permite gestión de tareas y proyectos online?", options: [
       "Focalboard",
@@ -222,9 +222,9 @@ const allQuestions = [
     ], answer: 0 },
   { id: 37, text: "¿Qué sucede si no se respeta el tiempo de entrega en un proyecto?", options: [
       "Puede retrasar todo el proyecto",
-      "Mejora la calidad",
-      "No impacta el cronograma",
-      "Acelera la entrega"
+      "Mejora la calidad del proyecto",
+      "No impacta el cronograma de trabajo",
+      "Acelera la entrega del proyecto"
     ], answer: 0 },
   { id: 38, text: "¿Qué es un documento de justificación?", options: [
       "Explicar razones, contexto y beneficios",
@@ -487,7 +487,6 @@ const allQuestions = [
   ],
   answer: 0
 }
-
 
 ];
 

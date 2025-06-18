@@ -47,6 +47,27 @@ export default function Home() {
         </div>
 
         <div className="bg-white shadow-xl rounded-xl p-8 flex flex-col items-center hover:scale-105 transition">
+          <h2 className="text-2xl font-semibold text-[#00796b] mb-4">Juegos de memoria</h2>
+          <p className="text-center text-gray-600 mb-6">
+            Ingresa para practicar.
+          </p>
+          <Link
+            href="/examen-2dop"
+            className="bg-[#00796b] text-white py-3 px-6 rounded-full text-lg font-medium shadow-md hover:bg-[#00695c] transition"
+          >
+            juego 1
+          </Link>
+          <br />
+          <Link
+            href="/examen-2dop"
+            className="bg-[#00796b] text-white py-3 px-6 rounded-full text-lg font-medium shadow-md hover:bg-[#00695c] transition"
+          >
+            juego 2
+          </Link>
+          
+        </div>
+
+        <div className="bg-white shadow-xl rounded-xl p-8 flex flex-col items-center hover:scale-105 transition">
           <h2 className="text-2xl font-semibold text-[#00796b] mb-4">Información</h2>
           <p className="text-center text-gray-600 mb-6">
             Examen final.

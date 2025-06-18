@@ -2,157 +2,493 @@
 import React, { useState, useEffect } from 'react';
 
 // Tu listado completo de preguntas:
+
 const allQuestions = [
-  { id: 1, text: "¿Qué es una página web?", options: ["Un archivo físico que permite enviar datos", "Un documento HTML accesible por internet", "Una imagen o conjunto de imagenes estáticas", "Una base de datos relacional con contenido importante e informativo"], answer: 1 },
-  { id: 2, text: "¿Qué lenguaje se utiliza para definir el contenido de una página web?", options: ["Python", "HTML", "SQL", "C++"], answer: 1 },
-  { id: 3, text: "¿Qué es una etiqueta en HTML?", options: ["Una variable", "Una instrucción de diseño", "Un comando de programación", "Un elemento que define estructura de contenido"], answer: 3 },
-  { id: 4, text: "¿Para qué sirve la etiqueta `<h1>` en HTML?", options: ["Crear tablas", "Definir el título principal", "Agregar imágenes", "Crear listas"], answer: 1 },
-  { id: 5, text: "¿Qué es el atributo 'src' en la etiqueta `<img>`?", options: ["Indica el color", "Define el tamaño", "Indica la fuente de la imagen", "Muestra el texto alternativo"], answer: 2 },
-  { id: 6, text: "¿Qué es una problemática en la comunidad?", options: ["Un asunto que no tiene solución", "Una situación que afecta negativamente a un grupo", "Una ley", "Un beneficio común"], answer: 1 },
-  { id: 7, text: "¿Qué es la justificación de un proyecto?", options: ["Explicar por qué se hace", "Contar una historia", "Escribir el título", "Nombrar al equipo"], answer: 0 },
-  { id: 8, text: "¿Cómo se identifican los objetivos de un proyecto?", options: ["Copiando de otros", "Definiendo lo que se busca lograr", "Escribiendo conclusiones", "Haciendo dibujos"], answer: 1 },
-  { id: 9, text: "¿Qué es Focalboard?", options: ["Un videojuego", "Una herramienta de gestión de tareas y proyectos", "Un buscador web", "Un editor de imágenes"], answer: 1 },
-  { id: 10, text: "¿Qué permite hacer Focalboard?", options: ["Editar videos", "Organizar tareas por etapas", "Jugar online", "Hacer encuestas"], answer: 1 },
-  { id: 11, text: "¿Qué rol puede existir dentro de un equipo?", options: ["Programador", "Diseñador", "Documentador", "Todos los anteriores"], answer: 3 },
-  { id: 12, text: "¿Qué es el trabajo colaborativo?", options: ["Hacerlo solo", "Trabajar en equipo con objetivos comunes", "Mandar las tareas a otros", "No cumplir con los tiempos"], answer: 1 },
-  { id: 13, text: "¿Cuál es la extensión básica de un archivo HTML?", options: [".html", ".txt", ".pdf", ".exe"], answer: 0 },
-  { id: 14, text: "¿Qué etiqueta HTML se usa para agregar un hipervínculo?", options: ["<img>", "<a>", "<p>", "<link>"], answer: 1 },
-  { id: 15, text: "¿Para qué sirve la etiqueta `<p>` en HTML?", options: ["Insertar párrafos de texto", "Agregar videos", "Definir encabezados", "Insertar audios"], answer: 0 },
-  { id: 16, text: "¿Qué significa el atributo 'alt' en una imagen?", options: ["Alternativa de color", "Texto alternativo por si la imagen no carga", "Cambiar tamaño", "Insertar animaciones"], answer: 1 },
-  { id: 17, text: "¿Qué es necesario para publicar una página web?", options: ["Una computadora", "Un servidor o servicio de hosting", "Una impresora", "Un navegador"], answer: 1 },
-  { id: 18, text: "¿Qué es un dominio?", options: ["Dirección única de un sitio web", "Lenguaje de programación", "Servidor", "Cuenta de usuario"], answer: 0 },
-  { id: 19, text: "¿Qué es el diseño responsivo?", options: ["Solo funciona en computadora", "Se adapta a distintos tamaños de pantalla", "Es un color especial", "Solo es para celulares"], answer: 1 },
-  { id: 20, text: "¿Cuál es la estructura básica de un archivo HTML?", options: ["Inicio, medio y fin", "<html>, <head>, <body>", "Título, imagen, párrafo", "Script, footer, header"], answer: 1 },
-  { id: 21, text: "¿Qué debemos evitar al trabajar en equipo?", options: ["Cumplir tiempos", "Comunicar avances", "Resolver problemas juntos", "No respetar opiniones de los demás"], answer: 3 },
-  { id: 22, text: "¿Por qué es importante definir bien el problema?", options: ["Para perder tiempo", "Para tener un plan claro", "Para copiar soluciones", "Para justificar los errores"], answer: 1 },
-  { id: 23, text: "¿Qué permite organizar tareas por etapas?", options: ["Paint", "Word", "Focalboard", "PowerPoint"], answer: 2 },
-  { id: 24, text: "¿Qué es un objetivo general?", options: ["Lo que busca lograr todo el proyecto", "Un color", "Un diseño", "Una imagen"], answer: 0 },
-  { id: 25, text: "¿Qué es un objetivo específico?", options: ["Sub-metas concretas del proyecto", "Una ley", "Un problema", "Una tabla"], answer: 0 },
-  { id: 26, text: "¿Cuál es el primer paso al iniciar un proyecto?", options: ["Diseñar la página web", "Definir la problemática", "Subir a internet", "Elegir colores"], answer: 1 },
-  { id: 27, text: "¿Qué herramienta gratuita permite crear páginas web estáticas?", options: ["Photoshop", "Github Pages", "Excel", "MS Paint"], answer: 1 },
-  { id: 28, text: "¿Cuál es la función de un 'líder de proyecto'?", options: ["Regañar al equipo", "Organizar y coordinar actividades", "Revisar tareas de otros grupos", "Hacer todo solo"], answer: 1 },
-  { id: 29, text: "¿Qué es el hosting?", options: ["Almacén de archivos web accesibles en internet", "Carpeta de Windows", "Editor de texto", "Diseñador de logos"], answer: 0 },
-  { id: 30, text: "¿Qué permite el trabajo con roles?", options: ["Confusión", "Mayor organización y responsabilidad", "Menos participación", "Menos comunicación"], answer: 1 },
-  { id: 31, text: "¿Qué es un encabezado `<h3>`?", options: ["Subtítulo de menor importancia que `<h1>`", "Imagen", "Tabla", "Video"], answer: 0 },
-  { id: 32, text: "¿Qué representa un problema social?", options: ["Un asunto personal", "Una dificultad que afecta a varios en la comunidad", "Una pelea entre amigos", "Un gusto individual"], answer: 1 },
-  { id: 33, text: "¿Cuál es la importancia de justificar un proyecto?", options: ["Para dar razones válidas de por qué realizarlo", "Para tener excusas", "Para ganar puntos", "Para gastar recursos"], answer: 0 },
-  { id: 34, text: "¿Qué permite un plan de trabajo?", options: ["No planear", "Organizar actividades con tiempos y responsables", "Decidir después", "Repetir tareas"], answer: 1 },
-  { id: 35, text: "¿Por qué es importante el trabajo colaborativo?", options: ["Permite sumar habilidades y conocimientos", "Hace perder tiempo", "Es obligatorio", "Es más rápido hacerlo solo"], answer: 0 },
-  { id: 36, text: "¿Qué plataforma permite gestión de tareas y proyectos online?", options: ["Facebook", "Focalboard", "Netflix", "TikTok"], answer: 1 },
-  { id: 37, text: "¿Qué sucede si no se respeta el tiempo de entrega en un proyecto?", options: ["Se mejora el trabajo", "Se retrasan todos los procesos", "No pasa nada", "Se gana más tiempo"], answer: 1 },
-  { id: 38, text: "¿Qué es un documento de justificación?", options: ["Un reporte que argumenta las razones de un proyecto", "Una lista de materiales", "Un presupuesto", "Una tarea escrita"], answer: 0 },
-  { id: 39, text: "¿Qué característica debe tener un objetivo?", options: ["Ser confuso", "Ser concreto, medible y alcanzable", "Ser largo", "Ser personal"], answer: 1 },
-  { id: 40, text: "¿Cuál es la etiqueta correcta para insertar una imagen en HTML?", options: ["<img>", "<picture>", "<image>", "<pic>"], answer: 0 },
-  {
-    id: 41,
-    text: "¿Qué es el hosting web?",
-    options: [
-      "Un editor de imágenes muy poderoso pero es de pago, sin embargo, es el mejor",
-      "Un servicio que almacena los archivos de una página web para que estén disponibles en internet",
-      "Un procesador de texto para escribir documentos en la web, es similar a Word",
-      "Un antivirus que protege las páginas web de virus y ataques cibernéticos"
-    ],
-    answer: 1
-  },
-  {
-    id: 42,
-    text: "¿Qué es un dominio en internet?",
-    options: [
-      "Una contraseña de red que se usa para acceder a una página web",
-      "Un número de teléfono unico de una empresa para identificar su página web",
-      "La dirección única de un sitio web que las personas escriben en el navegador",
-      "Un programa de seguridad que protege las páginas web de ataques"
-    ],
-    answer: 2
-  },
-  {
-    id: 43,
-    text: "¿Cuál es un ejemplo correcto de un dominio?",
-    options: [
-      "https://servidor.local",
+  { id: 1, text: "¿Qué es una página web?", options: [
+      "Un programa que se ejecuta localmente en tu equipo",
+      "Un documento HTML accesible por internet",
+      "Un servicio de streaming de video",
+      "Un repositorio de bases de datos"
+    ], answer: 1 },
+  { id: 2, text: "¿Qué lenguaje se utiliza para definir el contenido de una página web?", options: [
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "PHP"
+    ], answer: 1 },
+  { id: 3, text: "¿Qué es una etiqueta en HTML?", options: [
+      "Una marca que delimita contenido",
+      "Un comando para dar estilo",
+      "Un método de programación",
+      "Una hoja de estilo externa"
+    ], answer: 0 },
+  { id: 4, text: "¿Para qué sirve la etiqueta `<h1>` en HTML?", options: [
+      "Establecer el título principal",
+      "Crear un vínculo",
+      "Añadir una imagen de fondo",
+      "Definir un párrafo"
+    ], answer: 0 },
+  { id: 5, text: "¿Qué es el atributo 'src' en la etiqueta `<img>`?", options: [
+      "Especificar la URL de la imagen",
+      "Determinar el estilo CSS",
+      "Mostrar texto alternativo",
+      "Definir el color de enlace"
+    ], answer: 0 },
+  { id: 6, text: "¿Qué es una problemática en la comunidad?", options: [
+      "Un reto que necesita solución colectiva",
+      "Una tradición comunitaria",
+      "Una regla establecida",
+      "Una actividad recreativa"
+    ], answer: 0 },
+  { id: 7, text: "¿Qué es la justificación de un proyecto?", options: [
+      "Argumentar las razones para iniciarlo",
+      "Establecer el cronograma",
+      "Describir al equipo",
+      "Presentar los resultados"
+    ], answer: 0 },
+  { id: 8, text: "¿Cómo se identifican los objetivos de un proyecto?", options: [
+      "Describir metas claras y medibles",
+      "Copiar de otro proyecto",
+      "Dibujar diagramas sin texto",
+      "Incluir solo conclusiones"
+    ], answer: 0 },
+  { id: 9, text: "¿Qué es Focalboard?", options: [
+      "Una aplicación de administración de proyectos",
+      "Un editor de texto en línea",
+      "Un servicio de correo",
+      "Un reproductor de video"
+    ], answer: 0 },
+  { id: 10, text: "¿Qué permite hacer Focalboard?", options: [
+      "Crear y priorizar tareas",
+      "Monitorear contraseñas",
+      "Enviar mensajes automáticos",
+      "Diseñar gráficos vectoriales"
+    ], answer: 0 },
+  { id: 11, text: "¿Qué rol puede existir dentro de un equipo?", options: [
+      "Programador",
+      "Diseñador UX",
+      "Analista de datos",
+      "Todos los anteriores"
+    ], answer: 3 },
+  { id: 12, text: "¿Qué es el trabajo colaborativo?", options: [
+      "Coordinar esfuerzos con otros",
+      "Trabajar de manera aislada",
+      "Enviar tareas sin retroalimentación",
+      "Ignorar plazos"
+    ], answer: 0 },
+  { id: 13, text: "¿Cuál es la extensión básica de un archivo HTML?", options: [
+      ".html",
+      ".docx",
+      ".css",
+      ".json"
+    ], answer: 0 },
+  { id: 14, text: "¿Qué etiqueta HTML se usa para agregar un hipervínculo?", options: [
+      "<a>",
+      "<link>",
+      "<nav>",
+      "<href>"
+    ], answer: 0 },
+  { id: 15, text: "¿Para qué sirve la etiqueta `<p>` en HTML?", options: [
+      "Insertar bloques de texto",
+      "Incrustar scripts",
+      "Definir estilos en línea",
+      "Agregar formularios"
+    ], answer: 0 },
+  { id: 16, text: "¿Qué significa el atributo 'alt' en una imagen?", options: [
+      "Texto de descripción para accesibilidad",
+      "Enlace alternativo",
+      "Color de fondo",
+      "URL de la imagen"
+    ], answer: 0 },
+  { id: 17, text: "¿Qué es necesario para publicar una página web?", options: [
+      "Un dominio registrado y hosting",
+      "Solo un editor de texto",
+      "Un antivirus instalado",
+      "Un sistema operativo específico"
+    ], answer: 0 },
+  { id: 18, text: "¿Qué es un dominio?", options: [
+      "Nombre único que identifica un sitio web",
+      "Un lenguaje de programación",
+      "Una red social privada",
+      "Un protocolo de transferencia"
+    ], answer: 0 },
+  { id: 19, text: "¿Qué es el diseño responsivo?", options: [
+      "Ajustar el diseño según el tamaño de pantalla",
+      "Usar colores vivos",
+      "Solo editar HTML",
+      "Requiere Java"
+    ], answer: 0 },
+  { id: 20, text: "¿Cuál es la estructura básica de un archivo HTML?", options: [
+      "<html>, <head> y <body>",
+      "<div>, <span> y <header>",
+      "<section>, <article> y <footer>",
+      "<script>, <style> y <link>"
+    ], answer: 0 },
+  { id: 21, text: "¿Qué debemos evitar al trabajar en equipo?", options: [
+      "Ignorar aportes de otros",
+      "Colaborar activamente",
+      "Revisar avances",
+      "Mantener comunicación"
+    ], answer: 0 },
+  { id: 22, text: "¿Por qué es importante definir bien el problema?", options: [
+      "Para enfocar soluciones y objetivos",
+      "Para copiar plantillas",
+      "Para añadir estética",
+      "Para completar requisitos sin propósito"
+    ], answer: 0 },
+  { id: 23, text: "¿Qué permite organizar tareas por etapas?", options: [
+      "Focalboard",
+      "Chrome DevTools",
+      "Spotify",
+      "GitHub"
+    ], answer: 0 },
+  { id: 24, text: "¿Qué es un objetivo general?", options: [
+      "Meta amplia del proyecto",
+      "Una sección de estilo",
+      "Un elemento HTML",
+      "Un script de JavaScript"
+    ], answer: 0 },
+  { id: 25, text: "¿Qué es un objetivo específico?", options: [
+      "Meta puntual y medible",
+      "Un diagrama de flujo",
+      "Una imagen de portada",
+      "Una biblioteca externa"
+    ], answer: 0 },
+  { id: 26, text: "¿Cuál es el primer paso al iniciar un proyecto?", options: [
+      "Detectar la problemática real",
+      "Diseñar la interfaz",
+      "Configurar el servidor",
+      "Crear el logo"
+    ], answer: 0 },
+  { id: 27, text: "¿Qué herramienta gratuita permite crear páginas web estáticas?", options: [
+      "GitHub Pages",
+      "AWS Lambda",
+      "Adobe Photoshop",
+      "Microsoft Excel"
+    ], answer: 0 },
+  { id: 28, text: "¿Cuál es la función de un 'líder de proyecto'?", options: [
+      "Coordinar tareas y recursos",
+      "Gestionar presupuestos",
+      "Programar el proyecto",
+      "Editar todo el contenido"
+    ], answer: 0 },
+  { id: 29, text: "¿Qué es el hosting?", options: [
+      "Servicio para alojar sitios web",
+      "Carpeta local en Windows",
+      "Editor de texto",
+      "Un CMS"
+    ], answer: 0 },
+  { id: 30, text: "¿Qué permite el trabajo con roles?", options: [
+      "Clarificar responsabilidades",
+      "Difuminar funciones",
+      "Restringir la comunicación",
+      "Excluir miembros"
+    ], answer: 0 },
+  { id: 31, text: "¿Qué es un encabezado `<h3>`?", options: [
+      "Subtítulo menos importante que `<h1>`",
+      "Etiqueta para imágenes",
+      "Tabla de datos",
+      "Enlace externo"
+    ], answer: 0 },
+  { id: 32, text: "¿Qué representa un problema social?", options: [
+      "Una dificultad que impacta a un grupo",
+      "Un gusto personal",
+      "Un error de programación",
+      "Una preferencia individual"
+    ], answer: 0 },
+  { id: 33, text: "¿Cuál es la importancia de justificar un proyecto?", options: [
+      "Brindar fundamentos y motivación del proyecto",
+      "Mostrar ejemplos gráficos",
+      "Citar solo fuentes",
+      "Ignorar contexto"
+    ], answer: 0 },
+  { id: 34, text: "¿Qué permite un plan de trabajo?", options: [
+      "Definir actividades, plazos y responsables",
+      "Eliminar tareas",
+      "Retrasar entregas",
+      "Diseñar logos"
+    ], answer: 0 },
+  { id: 35, text: "¿Por qué es importante el trabajo colaborativo?", options: [
+      "Combinar habilidades y conocimientos",
+      "Reducir trabajo en equipo",
+      "Aumentar costos",
+      "Evitar comunicación"
+    ], answer: 0 },
+  { id: 36, text: "¿Qué plataforma permite gestión de tareas y proyectos online?", options: [
+      "Focalboard",
+      "YouTube",
+      "Instagram",
+      "Reddit"
+    ], answer: 0 },
+  { id: 37, text: "¿Qué sucede si no se respeta el tiempo de entrega en un proyecto?", options: [
+      "Puede retrasar todo el proyecto",
+      "Mejora la calidad",
+      "No impacta el cronograma",
+      "Acelera la entrega"
+    ], answer: 0 },
+  { id: 38, text: "¿Qué es un documento de justificación?", options: [
+      "Explicar razones, contexto y beneficios",
+      "Listar materiales sin contexto",
+      "Incluir solo fechas",
+      "Solo poner nombres"
+    ], answer: 0 },
+  { id: 39, text: "¿Qué característica debe tener un objetivo?", options: [
+      "Ser claro, medible y alcanzable",
+      "Ser genérico",
+      "Ser abstracto",
+      "Ser personal"
+    ], answer: 0 },
+  { id: 40, text: "¿Cuál es la etiqueta correcta para insertar una imagen en HTML?", options: [
+      "<img>",
+      "<figure>",
+      "<iframe>",
+      "<svg>"
+    ], answer: 0 },
+  { id: 41, text: "¿Qué es el hosting web?", options: [
+      "Editor de páginas web",
+      "Servicio que mantiene tu sitio disponible en internet",
+      "Lenguaje de programación",
+      "Plataforma de streaming"
+    ], answer: 1 },
+  { id: 42, text: "¿Qué es un dominio en internet?", options: [
+      "Dirección web que ubica un sitio",
+      "Una clave de acceso",
+      "Un protocolo de seguridad",
+      "Una plantilla de diseño"
+    ], answer: 0 },
+  { id: 43, text: "¿Cuál es un ejemplo correcto de un dominio?", options: [
       "www.mipaginaweb.com",
-      "ftp://192.168.1.1",
-      "file://documentos"
-    ],
-    answer: 1
-  },
-  {
-    id: 44,
-    text: "¿Para qué sirve una base de datos en una página web?",
-    options: [
-      "Para guardar música y videos de forma local, asi como juegos",
-      "Para almacenar y organizar información que se usa en la web, como usuarios, productos o publicaciones",
-      "Para diseñar la apariencia de nuestra página web",
-      "Para enviar correos electrónicos y mensajes a los usuarios de la web"
-    ],
-    answer: 1
-  },
-  {
-    id: 45,
-    text: "¿Qué es MySQL?",
-    options: [
-      "Un lenguaje de programación de juegos y aplicaciones",
-      "Un programa de dibujo epspecializado",
-      "Un sistema gestor de bases de datos muy utilizado en páginas web",
-      "Un editor de videos muy avanzado"
-    ],
-    answer: 2
-  },
-  {
-    id: 46,
-    text: "¿Qué sucede si no pagamos el dominio de nuestra página web?",
-    options: [
-      "No pasa nada, la página sigue activa",
-      "La página sigue funcionando normalmente pero sin actualizaciones",
-      "El dominio puede ser liberado y otra persona podría comprarlo",
-      "Se convierte en una red social de pago para siempre"
-    ],
-    answer: 2
-  },
-  {
-    id: 47,
-    text: "¿Qué información guarda una base de datos de usuarios?",
-    options: [
-      "Películas y videos de YouTube",
-      "Juegos descargados de internet y sus puntuaciones",
-      "Datos como nombres, contraseñas, correos electrónicos",
-      "Las imágenes de la página de un libro"
-    ],
-    answer: 2
-  },
-  {
-    id: 48,
-    text: "¿Qué servicio gratuito permite publicar páginas web estáticas?",
-    options: [
+      "192.168.0.1",
+      "http://localhost:3000",
+      "ftp://servidor"
+    ], answer: 0 },
+  { id: 44, text: "¿Para qué sirve una base de datos en una página web?", options: [
+      "Guardar y gestionar información dinámica",
+      "Crear estilos CSS",
+      "Renderizar HTML",
+      "Enviar correos"
+    ], answer: 0 },
+  { id: 45, text: "¿Qué es MySQL?", options: [
+      "Sistema gestor de bases de datos",
+      "Lenguaje de programación",
+      "Editor de texto",
+      "Framework de JavaScript"
+    ], answer: 0 },
+  { id: 46, text: "¿Qué sucede si no pagamos el dominio de nuestra página web?", options: [
+      "Podría quedar libre para otros",
+      "Funciona sin cambios",
+      "Se convierte en privado",
+      "Genera un error 404 permanente"
+    ], answer: 0 },
+  { id: 47, text: "¿Qué información guarda una base de datos de usuarios?", options: [
+      "Nombres, correos y contraseñas",
+      "Tareas de diseño",
+      "Enlaces de video",
+      "Imágenes de portada"
+    ], answer: 0 },
+  { id: 48, text: "¿Qué servicio gratuito permite publicar páginas web estáticas?", options: [
       "Github Pages",
-      "Netflix",
-      "Word",
-      "Photoshop"
-    ],
-    answer: 0
-  },
+      "Google Docs",
+      "Dropbox",
+      "Flickr"
+    ], answer: 0 },
+  { id: 49, text: "¿Qué ventaja tiene usar hosting en la nube?", options: [
+      "Escalabilidad y disponibilidad continua",
+      "Requiere servidor propio",
+      "Solo funciona offline",
+      "Reduce interactividad"
+    ], answer: 0 },
+  { id: 50, text: "¿Para qué sirve el panel de control del hosting?", options: [
+      "Administrar archivos, bases y configuraciones",
+      "Diseñar presentaciones",
+      "Enviar newsletters",
+      "Monitorear redes sociales"
+    ], answer: 0 },
+
+  // 10 preguntas nuevas (51–60)
+  { id: 51, text: "¿Qué elemento HTML se usa para insertar un video en una página web?", options: [
+      "<video>",
+      "<img>",
+      "<audio>",
+      "<embed>"
+    ], answer: 0 },
+  { id: 52, text: "¿Cuál es la función de CSS en el desarrollo web?", options: [
+      "Dar estilo visual a la página",
+      "Definir la estructura HTML",
+      "Programar la lógica",
+      "Almacenar datos"
+    ], answer: 0 },
+  { id: 53, text: "¿Qué símbolo se utiliza para comentar en CSS?", options: [
+      "/* comentario */",
+      "// comentario",
+      "<!-- comentario -->",
+      "# comentario"
+    ], answer: 0 },
+  { id: 54, text: "¿Qué propiedad de CSS cambia el tamaño de fuente?", options: [
+      "font-size",
+      "text-align",
+      "margin",
+      "background"
+    ], answer: 0 },
+  { id: 55, text: "¿Cómo enlazas una hoja de estilos externa en HTML?", options: [
+      "<link rel=\"stylesheet\" href=\"estilos.css\">",
+      "<script src=\"estilos.css\">",
+      "<style src=\"estilos.css\">",
+      "<css src=\"estilos.css\">"
+    ], answer: 0 },
+  { id: 56, text: "¿Qué etiqueta HTML define una lista desordenada?", options: [
+      "<ul>",
+      "<ol>",
+      "<li>",
+      "<dl>"
+    ], answer: 0 },
+  { id: 57, text: "¿Cuál es la diferencia principal entre `<ol>` y `<ul>`?", options: [
+      "`<ol>` numera elementos; `<ul>` usa viñetas",
+      "`<ol>` usa viñetas; `<ul>` numera",
+      "No hay diferencia",
+      "`<ul>` está obsoleto"
+    ], answer: 0 },
+  { id: 58, text: "¿Qué es un servidor?", options: [
+      "Una computadora o sistema que proporciona servicios o recursos a otras computadoras llamadas clientes",
+      "Un software de diseño gráfico que crea interfaces de usuario",
+      "Un programa que protege contra virus y malware en una red",
+      "Una aplicación de mensajería que permite la comunicación entre usuarios ubicados en diferentes partes del mundo"
+    ], answer: 0 },
   {
-    id: 49,
-    text: "¿Qué ventaja tiene usar hosting en la nube?",
-    options: [
-      "La página solo funciona en una computadora local",
-      "Puede estar disponible las 24 horas desde cualquier lugar con internet",
-      "Se necesita tener la computadora siempre encendida",
-      "Solo funciona en dispositivos móviles con una suscripcion mensual"
-    ],
-    answer: 1
-  },
+  id: 59,
+  text: "¿Qué es JavaScript?",
+  options: [
+    "Un lenguaje de programación que permite añadir interactividad a las páginas web",
+    "Una hoja de estilo que da color y forma a una página web",
+    "Una herramienta para crear bases de datos en el servidor",
+    "Un programa para editar imágenes desde el navegador"
+  ],
+  answer: 0
+}
+,
   {
-    id: 50,
-    text: "¿Para qué sirve el panel de control del hosting?",
-    options: [
-      "Para diseñar gráficos, texto e imagenes",
-      "Para administrar los archivos, bases de datos y configuraciones del sitio web",
-      "Para enviar mensajes, recordatorios y recibir correos",
-      "Para crear cuentas de redes sociales y publicar contenido"
-    ],
-    answer: 1
-  }
+  id: 60,
+  text: "¿Qué es HTML?",
+  options: [
+    "Un lenguaje de marcado que se utiliza para estructurar el contenido de las páginas web",
+    "Un programa que se instala para hacer gráficos en 3D en las páginas web",
+    "Una base de datos que almacena información del usuario dentro de una página web",
+    "Un sistema operativo utilizado para desarrollar aplicaciones móviles y de escritorio"
+  ],
+  answer: 0
+},
+{
+  id: 61,
+  text: "¿Cuál es el propósito principal de un reporte escrito sobre un proyecto?",
+  options: [
+    "Informar de manera clara y ordenada sobre el desarrollo y resultados del proyecto",
+    "Diseñar gráficamente una página web",
+    "Publicar el proyecto en redes sociales",
+    "Enviar una carta a las autoridades escolares"
+  ],
+  answer: 0
+},
+{
+  id: 62,
+  text: "¿Qué sección del reporte presenta la problemática que se quiere resolver?",
+  options: [
+    "Introducción",
+    "Anexos",
+    "Justificación",
+    "Desarrollo técnico"
+  ],
+  answer: 0
+},
+{
+  id: 63,
+  text: "¿Qué debe incluir la sección de justificación en el reporte?",
+  options: [
+    "Razones por las que se eligió la problemática y la importancia de resolverla",
+    "Solo el título del proyecto",
+    "El nombre de los participantes",
+    "Un resumen de la conclusión"
+  ],
+  answer: 0
+},
+{
+  id: 64,
+  text: "¿Qué se incluye en los objetivos del proyecto dentro del reporte?",
+  options: [
+    "Las metas que se desean alcanzar al resolver la problemática",
+    "Los errores que se cometieron",
+    "Los dibujos de los participantes",
+    "Una lista de materiales"
+  ],
+  answer: 0
+},
+{
+  id: 65,
+  text: "¿Qué se recomienda al escribir la introducción del reporte?",
+  options: [
+    "Presentar de forma general el tema y su contexto",
+    "Incluir tablas de datos",
+    "Escribir solo la fecha",
+    "Hacer un resumen de todas las conclusiones"
+  ],
+  answer: 0
+},
+{
+  id: 66,
+  text: "¿Qué se debe describir en el desarrollo del reporte?",
+  options: [
+    "Las acciones realizadas para resolver la problemática",
+    "Solo los nombres de los participantes",
+    "La marca de la computadora usada",
+    "Una lista de contraseñas"
+  ],
+  answer: 0
+},
+{
+  id: 67,
+  text: "¿Para qué sirve agregar evidencias gráficas (como fotos) en un reporte?",
+  options: [
+    "Para mostrar el proceso del proyecto de manera visual",
+    "Para decorar el documento",
+    "Para evitar escribir texto",
+    "Para reemplazar la introducción"
+  ],
+  answer: 0
+},
+{
+  id: 68,
+  text: "¿Qué se debe evitar al redactar un reporte escrito?",
+  options: [
+    "Incluir opiniones sin fundamento o sin relación al tema",
+    "Explicar el proceso paso a paso",
+    "Agregar gráficos de apoyo personalizados",
+    "Redactar en orden cronológico"
+  ],
+  answer: 0
+},
+{
+  id: 69,
+  text: "¿Cuál es el propósito de la conclusión en un reporte de proyecto?",
+  options: [
+    "Resumir lo aprendido y los resultados obtenidos",
+    "Poner imágenes del equipo con los resultados",
+    "Escribir las tareas pendientes del proyecto",
+    "Mostrar los errores de ortografía cometidos"
+  ],
+  answer: 0
+},
+{
+  id: 70,
+  text: "¿Qué datos deben aparecer en la portada del reporte escrito?",
+  options: [
+    "Nombre del proyecto, integrantes, grado y fecha",
+    "Solo el título en mayúsculas",
+    "Una imagen llamativa con las caracteristicas mas importantes",
+    "Una frase motivadora para el equipo"
+  ],
+  answer: 0
+}
+
+
 ];
 
 

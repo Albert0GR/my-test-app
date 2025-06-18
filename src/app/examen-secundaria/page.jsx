@@ -204,9 +204,9 @@ const allQuestions = [
     ], answer: 0 },
   { id: 34, text: "¿Qué permite un plan de trabajo?", options: [
       "Definir actividades, plazos y responsables",
-      "Eliminar tareas",
-      "Retrasar entregas",
-      "Diseñar logos"
+      "Eliminar tareas innecesarias",
+      "Retrasar entregas sin aviso",
+      "Diseñar logos utiles en la web"
     ], answer: 0 },
   { id: 35, text: "¿Por qué es importante el trabajo colaborativo?", options: [
       "Combinar habilidades y conocimientos",
@@ -492,8 +492,7 @@ const allQuestions = [
 ];
 
 
-// Mezcla aleatoria:
-// Función para mezclar preguntas aleatoriamente
+// Mezcla aleatoria de un array
 function shuffle(array) {
   let currentIndex = array.length, randomIndex;
   while (currentIndex !== 0) {
@@ -502,6 +501,29 @@ function shuffle(array) {
     [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
   }
   return array;
+}
+
+// Mezcla opciones y actualiza el índice correcto
+function shuffleOptionsAndAnswer(questions) {
+  return questions.map((q) => {
+    const options = [...q.options];
+    const correctAnswer = q.options[q.answer];
+
+    // Mezclar las opciones
+    for (let i = options.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [options[i], options[j]] = [options[j], options[i]];
+    }
+
+    // Obtener nueva posición de la respuesta correcta
+    const newAnswerIndex = options.indexOf(correctAnswer);
+
+    return {
+      ...q,
+      options,
+      answer: newAnswerIndex,
+    };
+  });
 }
 
 export default function ExamPage() {
@@ -514,9 +536,9 @@ export default function ExamPage() {
   const [score, setScore] = useState(null);
 
   const startExam = () => {
-    const shuffled = shuffle([...allQuestions]);
-    setQuestions(shuffled);
-    setAnswers(new Array(shuffled.length).fill(null));
+    const randomizedQuestions = shuffleOptionsAndAnswer(shuffle([...allQuestions]));
+    setQuestions(randomizedQuestions);
+    setAnswers(new Array(randomizedQuestions.length).fill(null));
     setStarted(true);
   };
 
@@ -539,12 +561,11 @@ export default function ExamPage() {
 
     setScore(correct);
 
-   const res = await fetch('/api/submit-secundaria', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name, grade, answers, score: correct }),
-});
-
+    const res = await fetch('/api/submit-secundaria', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, grade, answers, score: correct }),
+    });
 
     if (!res.ok) {
       alert("Error al guardar resultados");
@@ -657,7 +678,7 @@ export default function ExamPage() {
   );
 }
 
-// Estilos (igual que ya tenías)
+// Estilos
 const containerStyle = {
   backgroundColor: '#f0f8ff',
   minHeight: '100vh',

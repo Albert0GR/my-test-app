@@ -7,6 +7,8 @@ const games = [
   { name: "Lightbot", url: "https://lightbot.com/" },
   { name: "CodeCombat", url: "https://codecombat.com/play/junior" },
   { name: "VEXCode VR", url: "https://vr.vex.com/" },
+  { name: "KODABLE", url: "https://game.kodable.com/basics/?hc=1&user=zyr7n2a&hoc=main&activity=self-guided" },
+  { name: "Tangram", url: "https://polypad.amplify.com/es/tangram" },
 ];
 
 export default function GamesListPage() {
